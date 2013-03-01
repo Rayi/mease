@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" rel="stylesheet" href="style/global.css" />
+<link type="text/css" rel="stylesheet" href="style/app_weibo.css" />
+<link type="text/css" rel="stylesheet" href="style/bgslide.css" />
+
+<title>Mease</title>
+</head>
+
+<body>
+	<div class="wrapper">
+    <div class="tool-panel" id="tool-panel">
+    	<div class="application-head">MEASE<sup> Alpha </sup></div>
+        <span class="close" onclick="nativeWindow.close();" title="退出程序">&nbsp;</span>
+	</div>
+	<div class="bg-slider">
+    	<div class="sldier-inner">
+        </div>
+    </div>
+    <div class="slide-trigger">
+    </div>
+    <div class="actions">
+    	<span class="custom-btn custom-btn-focus" onclick="previewBg()">预览</span> <span class="custom-btn custom-btn-focus" onclick="setBg()">设为背景</span>
+    </div>
+    </div>
+    <script type="text/javascript" src="script/AIRAliases.js"></script>
+	<script type="text/javascript" src="script/jquery.js"></script>
+	<script type="text/javascript" src="script/sha.js"></script>
+	<script type="text/javascript" src="script/json2.js"></script>
+    <script type="text/javascript">
+		var parentWindow;
+		function windowInit(parent){
+			parentWindow = parent;
+		}
+		$("#tool-panel").show();
+		$('#tool-panel,#startup').bind('mousedown',function(){
+			nativeWindow.startMove();
+		});
+		$(".slide-trigger").delegate("span","click",function(){
+			$(".slide-trigger span").removeClass("current");
+			$(this).addClass("current");
+			var index1 = $(this).data("index");
+			var index = $(this).attr("data-index");
+			//console.log(index1,index);
+			$(".sldier-inner").animate({left:index*600*(-1)},500);
+			currentIndex = index;
+		});
+		nativeWindow.width = 600;
+		nativeWindow.height = 420;
+		
+		var bgs = [];
+		var currentIndex = 0;
+		
+		var completeHandle = function(event){
+				var loader = air.URLLoader(event.target);
+				if(loader.data.indexOf("xml version") > 0){
+					var xmlParse = new DOMParser();
+					var data = xmlParse.parseFromString(loader.data,"text/xml");
+					$(data.getElementsByTagName("image")).each(function(i,v){
+						bingURL = "http://cn.bing.com" + v.getElementsByTagName('url')[0].childNodes[0].nodeValue;
+						bgs.push(bingURL);
+						$('<div class="bg-item"><img src="' + bingURL + '" width="600px" /></div>').appendTo(".sldier-inner");
+						$('<span class="default" data-index="' + i + '"></span>').appendTo(".slide-trigger");
+					});
+					$(".slide-trigger span:first").trigger("click");
+				}
+		};
+		
+		function errorCallback(){
+		}
+		
+		var requestJson = {
+			"url":"http://cn.bing.com/HPImageArchive.aspx",
+			"data":"format=xml&idx=0&n=9&nc=1283872492211",
+			"method":"GET"
+		}
+			
+		var request = new air.URLRequest();
+		request.method =air.URLRequestMethod.GET;
+		request.url = requestJson.url;
+		request.data = requestJson.data;
+		
+		var loader = new air.URLLoader();
+		loader.addEventListener(air.Event.COMPLETE,completeHandle);
+		loader.addEventListener(air.IOErrorEvent.IO_ERROR,errorCallback)
+		loader.load(request);
+		
+		function previewBg(){
+			var url = bgs[currentIndex];
+			parentWindow.APP.Weibo.actions.setBG(url);
+		}
+		
+		function setBg(){
+			var url = bgs[currentIndex];
+			parentWindow.APP.Weibo.actions.setBG(url,true);
+		}
+	
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" rel="stylesheet" href="style/global.css" />
+<link type="text/css" rel="stylesheet" href="style/app_weibo.css" />
+<link type="text/css" rel="stylesheet" href="style/app_music.css" />
+<title>Mease</title>
+</head>
+
+<body>
+	<div id="startup">
+    	<div class="msg" id="startup-status">正在检查网络状态...</div>
+        <div class="progress-bar">
+        	<div id="progress-percent" class="progress-percent"></div>
+        </div>
+    </div>
+    <div class="tool-panel" id="tool-panel">
+    	<div class="application-head">MEASE<sup> Alpha </sup> <span onclick="nativeWindow.restore();Measy.signOut()" id="sighout" title="退出登录">[退出登录]</span></div>
+        <!--<span class="q" onclick="nativeWindow.close();">Help</span>-->
+        <span class="menus" onclick="Measy.showMenus()" title="主菜单">&nbsp;</span>      
+        <span class="min" onclick="nativeWindow.minimize();nativeWindow.visible = false;" title="最小化">&nbsp;</span>
+        <span class="max" onclick="toggleWindow()" title="最大化">&nbsp;</span>
+        <span class="close" onclick="Mease.exit()" title="退出程序">&nbsp;</span>
+	</div>
+    <div id="panel-signin">
+    	<div class="signin">
+        	<input id="userid" class="passport" type="text" value="riacity@gmail.com" />
+            <input id="passwd" class="password" type="password" value="lyalone" />
+            <input type="button" class="btn-signin" id="btn-signin" value="" />
+        </div>
+    </div>
+    <div class="menu-list" id="main-menus">
+    	<ul>
+        	<li>设置(暂未开放)</li>
+            <li onclick="RC.changeBgs()">Bing背景图</li>
+            <li onclick="RC.MeaseBgs()">Mease推荐背景</li>
+            <li onclick="Measy.checkUpdate()">检查更新</li>
+            <li onclick="Measy.about()">关于...</li>
+            <li onclick="nativeWindow.restore();Measy.signOut()">退出登录</li>
+            <li onclick="Mease.exit()">退出Mease</li>
+        </ul>
+    </div>
+    
+	<div id="main" style="display:none;">
+    <div id="main-content">
+    <div class="stage stage-app">
+        <div class="wrapper">
+            <div class="user-info" id="my-info">
+                <div class="avatar"><img id="my-avatar" src="images/weibo/avatar.png" onerror="this.src = 'images/app_settings.png'" /></div>
+                <div class="detail">
+                    <p class="my-name"></p>
+                    <p class="my-detail"></p>
+                </div>
+                <div class="honor" id="my-honor">正在获取用户信息...</div>
+            </div>
+            <div class="control" id="control">
+                <span class="btn btn-home current" tip="我的主页" action="getHomeTimeline"><img class="home" src="images/music/s.png" /></span>
+                <span class="btn btn-my" tip="我的微博" action="getMyTimeline"><img class="mywb" src="images/music/s.png" /></span>
+                <span class="btn btn-mention" tip="我的@" action="getMyMentions"><img class="atme" src="images/music/s.png" /></span>
+                <span class="btn btn-comment" tip="我的评论" action="getMyComments"><img class="comment" src="images/music/s.png" /></span>
+                <span class="btn btn-mail" tip="我的私信" action="getMyMails"><img class="mail" src="images/music/s.png" /></span>
+                <span class="btn btn-fav" tip="我的收藏" action="getMyFavs"><img class="favs" src="images/music/s.png" /></span>
+                <span class="btn btn-music" tip="音乐播放" action="playMusic"><img class="music" src="images/music/s.png" /></span>
+            </div>
+            <div class="list-content" id="list-content">
+				<div class="lists wb-list" id="wb-list"></div>
+                <div class="lists music-list" id="music-list">
+                    <div class="music-control" id="music-control">
+                        <span class="btn btn-play" onclick="APP.Music.c.play()"><img class="play" src="images/music/s.png" /></span>
+                        <span class="btn btn-pause" onclick="APP.Music.c.pause()"><img class="pause" src="images/music/s.png" /></span>
+                        <span class="btn btn-stop" onclick="APP.Music.c.clear()"><img class="stop" src="images/music/s.png" /></span>
+                        <!--<span class="btn btn-vol" onclick="APP.Music.v.upadte();return false;"><img class="vol" src="images/music/s.png" /></span>-->
+                        <span class="btn btn-open" onclick="APP.Music.c.add()"><img class="open" src="images/music/s.png" /></span>
+                        <span class="loading" id="loader"></span>
+                        <span class="timeline" id="time"><b id="current-time">00:00</b>/<b id="total-time">00:00</b></span>
+                    </div>
+                    <div class="progress" id="progress">
+                        <div class="point" id="play-pot"></div>
+                        <div class="playing" id="play-prog"></div>
+                        <div class="buff" id="play-buff"></div>
+                    </div>
+                    <div class="play-list" id="play-list">
+                        <ul>
+                           <!-- <li><span class="name">天使的翅膀</span><span class="auth">安琥</span><span class="time">05:28</span></li>
+                            <li class="current"><span class="name">爱就一个字</span><span class="auth">张信哲</span><span class="time">05:28</span></li>
+                            <li><span class="name">别怕我伤心</span><span class="auth">张信哲</span><span class="time">05:28</span></li>
+                            <li><span class="name">爱无界</span><span class="auth">张信哲</span><span class="time">05:28</span></li>
+                            <li><span class="name">用情</span><span class="auth">张信哲</span><span class="time">05:28</span></li>
+                            <li><span class="name">宽容</span><span class="auth">张信哲</span><span class="time">05:28</span></li>
+                            <li><span class="name">雨后</span><span class="auth">张信哲</span><span class="time">05:28</span></li>
+                            <li><span class="name">爱就一个字</span><span class="auth">张信哲</span><span class="time">05:28</span></li>
+                            <li><span class="name">过火</span><span class="auth">张信哲</span><span class="time">05:28</span></li>
+                            <li><span class="name">爱如潮水</span><span class="auth">张信哲</span><span class="time">05:28</span></li>
+                            <li><span class="name">宽容</span><span class="auth">张信哲</span><span class="time">05:28</span></li>
+                            <li><span class="name">太想爱你</span><span class="auth">张信哲</span><span class="time">05:28</span></li>
+                            <li><span class="name">问</span><span class="auth">梁静茹</span><span class="time">05:28</span></li>
+                            <li><span class="name">勇气</span><span class="auth">梁静茹</span><span class="time">05:28</span></li>
+                            <li><span class="name">一夜长大</span><span class="auth">梁静茹</span><span class="time">05:28</span></li>
+                            <li><span class="name">可惜不是你</span><span class="auth">梁静茹</span><span class="time">05:28</span></li>
+                            <li><span class="name">无条件为你</span><span class="auth">梁静茹</span><span class="time">05:28</span></li>
+                            <li><span class="name">分手快乐</span><span class="auth">梁静茹</span><span class="time">05:28</span></li>-->
+                      </ul>
+                    </div>
+                </div>
+			</div>
+            <div class="tip" id="globaltip">
+            	<span class="close"></span>
+            	<span id="tip-content">检测到有更新了，去下载更新MEASE吧！<a href="http://www.startfeel.com/app/measy/" rel="unfollow">下载更新包</a></span>
+            </div>
+			<div class="wb-panels" id="wb-panels">
+       	  		<div class="wb-panel" id="default-panel" style="display:block;top:0;">
+                	<span class="custom-btn custom-btn-focus" onclick="APP.Weibo.actions.addNew()">发微博</span>
+                </div>
+                <div class="wb-panel" id="other-panel">
+                	<span class="custom-btn custom-btn-focus" onclick="APP.Weibo.actions.addNew()">发微博</span>
+                    <div class="sub-panel">
+                    	<span class="custom-btn custom-btn-active wb-mail-switcher wb-mail-inbox" onclick="Weibo.Mails.getInbox()">刷新</span>
+                    </div>
+                </div>
+                <div class="wb-panel" id="letter-panel">
+                	<span class="custom-btn custom-btn-focus">发私信</span>
+                    <div class="sub-panel">
+                    	<span class="custom-btn custom-btn-active wb-mail-switcher wb-mail-inbox" onclick="APP.Weibo.Mails.getInbox()">收件箱</span>
+                    	<span class="custom-btn wb-mail-switcher wb-mail-outbox" onclick="APP.Weibo.Mails.getOutbox()">发件箱</span>
+                    </div>
+                </div>
+                <div class="wb-panel" id="comments-panel">
+                	<span class="custom-btn custom-btn-focus" onclick="APP.Weibo.actions.addNew()">发微博</span>
+                    <div class="sub-panel">
+                    	<span class="custom-btn custom-btn-active wb-comment-switcher wb-comment-outbox" onclick="APP.Weibo.Comments.getOutbox()">发表的</span>
+                        <span class="custom-btn wb-comment-switcher wb-comment-inbox" onclick="APP.Weibo.Comments.getInbox()">收到的</span>
+                    	
+                    </div>
+                </div>
+                <div class="wb-panel" id="favs-panel">
+                	<span class="custom-btn custom-btn-focus" onclick="APP.Weibo.actions.addNew()">发微博</span>
+                    <div class="sub-panel">
+                    	<span class="custom-btn custom-btn-active" onclick="APP.Weibo.Favs.refresh()">刷新</span>
+                    </div>
+                </div>
+                <div class="wb-panel" id="mention-panel">
+                	<span class="custom-btn custom-btn-focus" onclick="APP.Weibo.actions.addNew()">发微博</span>
+                    <div class="sub-panel">
+                    	<span class="custom-btn custom-btn-active" onclick="APP.Weibo.Mentions.refresh()">刷新</span>
+                    </div>
+                </div>
+                
+                <div class="wb-panel" id="music-panel">
+                	<span class="custom-btn custom-btn-focus" onclick="APP.Music.c.add()">添加歌曲</span>
+                    <div class="sub-panel">
+                    	<span class="custom-btn" onclick="Weibo.Mails.getInbox()">-</span>
+                        <span class="custom-btn" onclick="Weibo.Mails.getInbox()">+</span>
+                        <span class="custom-btn" onclick="Weibo.Mails.getInbox()">静音</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="message" id="message">正在获取数据...</div>
+        <div class="mask"></div>
+        <div class="action-panel" id="action-panel"></div>
+    </div>
+    <div class="footer">
+                <span class="btn btn-add" tip="发微薄" onclick="APP.Weibo.actions.addNew()"><img class="add" src="images/music/s.png" /></span>
+                <span class="btn btn-setting" tip="个性设置" onclick="APP.Weibo.actions.showConfig()"><img class="setting" src="images/music/s.png" /></span>
+                <span class="btn btn-info" tip="关于Measy" onclick="APP.Weibo.actions.showAbout()"><img class="info" src="images/music/s.png" /></span>
+                <span class="btn btn-delete" tip="小贴士" onclick="APP.Weibo.actions.signOut()"><img class="delete" src="images/music/s.png" /></span>
+    </div>
+    <div class="panels">
+    	<div class="wb-post wb-say-post" id="post-form">
+                <p class="transdoor" id="transdoor"></p>
+                <p class="post-actions">您还可以输入<span class="post-tip" id="wordlength">163</span>字</p>
+                <p class="post-content"><textarea class="post-area" id="post-text"></textarea></p>
+                <p style="text-align:right;">
+                <span class="post-cancel-btn" onclick="APP.Weibo.actions.hidePost()">&nbsp;&nbsp;</span>
+                <span class="post-btn" onclick="APP.Weibo.actions.sendPost()">&nbsp;&nbsp;</span>
+                <input type="hidden" id="repostId" value="" />
+                <input type="hidden" id="commentId" value="" />
+                </p>
+            </div>
+            <div class="setting-panel" id="custom-setting">
+            <p><label>自动更新时间：<select id="autofresh-timer"><option value="10">10秒</option><option value="20">20秒</option><option value="30">30秒</option><option value="40">40秒</option><option value="50">50秒</option><option  value="60">一分钟</option></select></label></p>
+                <p><label>每页显示条数：<select id="page-item-length"><option value="10">10</option><option value="20">20</option><option value="30">30</option><option value="40">40</option><option value="50">50</option></select></label></p>
+                <p><label>评论显示条数：<select id="comment-item-length"><option value="5">5</option><option value="10">10</option><option value="20">20</option></select></label></p>
+                <p><label>自定义背景图：<button onclick="APP.Weibo.actions.getImage()">选择本地图片</button></label></p>
+                <p><label>使用推荐背景：</label><span id="dbg-thumbs"><img src="images/rbg/t01.png" width="15" height="15" onclick="APP.Weibo.actions.setBG('images/rbg/bg01.png')" class="bgimage" /><img src="images/rbg/t02.png" width="15" height="15" onclick="APP.Weibo.actions.setBG('images/rbg/bg02.png')" class="bgimage" /><img src="images/rbg/t03.png" width="15" height="15" onclick="APP.Weibo.actions.setBG('images/rbg/bg03.png')" class="bgimage" /><img src="images/rbg/t04.png" width="15" height="15" onclick="APP.Weibo.actions.setBG('images/rbg/bg04.png')" class="bgimage" /><img src="images/rbg/t05.png" width="15" height="15" onclick="APP.Weibo.actions.setBG('images/rbg/bg05.png')" class="bgimage" /><img src="images/rbg/t06.png" width="15" height="15" onclick="APP.Weibo.actions.setBG('images/rbg/spa.jpg')" class="bgimage" /><img src="images/rbg/t07.png" width="15" height="15" onclick="APP.Weibo.actions.setBG('images/rbg/bg07.png')" class="bgimage" /><img src="images/rbg/t08.png" width="15" height="15" onclick="APP.Weibo.actions.setBG('http://cn.bing.com/fd/hpk2/MexicoEXPO_ZH-CN1745652678.jpg')" class="bgimage" /><img src="images/rbg/t09.png" width="15" height="15" onclick="APP.Weibo.actions.setBG('images/rbg/bg09.png')" class="bgimage" /></span></p>
+                <p id="bg-thumbs"><label>Bing推荐图片：</label></p>
+                <p><label><button onclick="APP.Weibo.actions.saveConfig()">保存</button></label><label><button onclick="APP.Weibo.actions.cancelConfig()">取消</button></label></p>
+            </div>
+            <div class="panel" id="about-mease">
+                <p><b>Measy 新浪微博专用版 1.0.0</b></p>
+                <p>版本代号: <b> trial </b> </p>
+                <p>官网：<a href="http://www.startfeel.com/measy/" rel="nofollow">http://www.startfeel.com/measy/</a></p>
+                <p>作者微博:<a href="http://t.sina.com.cn/measy/" rel="nofollow">http://t.sina.com.cn/measy/</a> <span class="link" onclick="APP.Weibo.actions.gotoUser('1586577820')">关注我</span></p>
+            </div>
+    </div>
+    <div class="tooltip" id="tooltip"></div>
+    </div>
+    </div>
+    <script type="text/javascript" src="script/AIRAliases.js"></script>
+	<script type="text/javascript" src="script/jquery.js"></script>
+	<script type="text/javascript" src="script/sha.js"></script>
+	<script type="text/javascript" src="script/json2.js"></script>
+	<script type="text/javascript" src="script/oauth.js"></script>
+    <script type="text/javascript" src="script/apis.js"></script>
+    <script type="text/javascript" src="script/weibo.js"></script>
+    <script type="text/javascript" src="script/music.js"></script>
+    <script type="text/javascript" src="script/main.js"></script>
+</body>
+</html>

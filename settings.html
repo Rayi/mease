@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" rel="stylesheet" href="style/global.css" />
+<link type="text/css" rel="stylesheet" href="style/app_weibo.css" />
+<link type="text/css" rel="stylesheet" href="style/settings.css" />
+
+<title>Mease</title>
+</head>
+
+<body>
+	<div class="wrapper">
+    <div class="tool-panel" id="tool-panel">
+    	<div class="application-head">MEASE<sup> Alpha </sup></div>
+        <span class="close" onclick="nativeWindow.close();" title="退出程序">&nbsp;</span>
+	</div>
+    <div class="user-settings" id="custom-setting">
+    	<p><label>自动更新时间：<select id="autofresh-timer"><option value="30">30秒</option><option value="40">40秒</option><option value="50">50秒</option><option  value="60">60秒</option><option  value="120">120秒</option><option  value="300">300秒</option></select></label></p>
+        <p><label>每页显示条数：<select id="page-item-length"><option value="50">50</option><option value="100">100</option><option value="150">150</option><option value="200">200</option></select></label></p>
+        <!--<p><label>评论显示条数：<select id="comment-item-length"><option value="5">5</option><option value="10">10</option><option value="20">20</option></select></label></p>
+        <p><label>自定义背景图：<button onclick="APP.Weibo.actions.getImage()">选择本地图片</button></label></p>-->
+    </div>
+    <div class="submit-actions">
+    	<span class="custom-btn custom-btn-focus" onclick="saveConfig()">确定</span>
+        <span class="custom-btn custom-btn-focus" onclick="nativeWindow.close();">取消</span>
+    </div>
+    </div>
+    <script type="text/javascript" src="script/AIRAliases.js"></script>
+	<script type="text/javascript" src="script/jquery.js"></script>
+	<script type="text/javascript" src="script/sha.js"></script>
+	<script type="text/javascript" src="script/json2.js"></script>
+    <script type="text/javascript">
+		var parentWindow;
+		function windowInit(parent){
+			
+			parentWindow = parent;
+		}
+		$("#tool-panel").show();
+		$('#tool-panel,#startup').bind('mousedown',function(){
+			nativeWindow.startMove();
+		});
+		
+		function saveConfig(){
+			var data = {
+				autorefreshTimer: $("#autofresh-timer").val(),
+				pageItemLength: $("#page-item-length").val()
+			}
+			parentWindow.RC.saveConfig(data);
+			nativeWindow.close();
+		}
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<application xmlns="http://ns.adobe.com/air/application/1.5">
+  <filename>Mease</filename>
+  <programMenuFolder>StartFeel</programMenuFolder>
+  <copyright>startfeel.com © 2010</copyright>
+  <description>Mease,platform with 163 MicroBlog!</description>
+  <customUpdateUI>false</customUpdateUI>
+  <name>Mease</name>
+  <id>com.startfeel.mease</id>
+  <version>0.0.1</version>
+  <initialWindow>
+    <content>index.html</content>
+    <height>255</height>
+    <width>400</width>
+    <systemChrome>none</systemChrome>
+    <transparent>true</transparent>
+    <visible>true</visible>
+  </initialWindow>
+  <icon>
+    <image128x128>icons/128.png</image128x128>
+    <image48x48>icons/48.png</image48x48>
+    <image32x32>icons/32.png</image32x32>
+    <image16x16>icons/16.png</image16x16>
+  </icon>
+  <fileTypes>
+    <fileType>
+      <name>startfeel.MusicList</name>
+      <extension>mlst</extension>
+      <contentType>application/feel.start.music-list</contentType>
+      <icon>
+        <image128x128>icons/128.png</image128x128>
+        <image48x48>icons/48.png</image48x48>
+        <image32x32>icons/32.png</image32x32>
+        <image16x16>icons/16.png</image16x16>
+      </icon>
+    </fileType>
+  </fileTypes>
+</application>

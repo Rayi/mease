@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* CSS Document */
+.bg-slider
+{
+	width:600px;
+	height:320px;
+	overflow:hidden;
+	position:relative;
+	background:#212121;
+}
+.bg-slider .sldier-inner
+{
+	width:9999px;
+	position:relative;
+}
+.bg-item
+{
+	width:600px;
+	text-align:center;
+	display:inline-block;
+	vertical-align:top;
+	overflow:hidden;
+}
+
+.slide-trigger 
+{
+	width:580px;
+	text-align:right;
+	background:#212121 url(../images/panel_effect.png) no-repeat center 0;
+	height:44px;
+	padding:0 10px;
+	-webkit-border-radius:0 0 5px 5px;
+}
+.slide-trigger .default
+{
+	border-radius:4px;
+	-webkit-border-radius:4px;
+	width:8px;
+	height:8px;
+	display:inline-block;
+	margin:20px 2px 0;
+	background:#666666;
+	cursor:pointer;
+}
+.slide-trigger .default:hover
+{
+	background:#ccc;
+	-webkit-box-shadow:0 0 3px #ffffff;
+	box-shadow:0 0 3px #ffffff;
+}
+.slide-trigger .current
+{
+	background:#ffffff;
+	-webkit-box-shadow:0 0 3px #ffffff;
+	box-shadow:0 0 3px #ffffff;
+}
+.actions
+{
+	position:absolute;
+	top:355px;
+	left:5px;
+	width:200px;
+}

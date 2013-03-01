@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" rel="stylesheet" href="style/global.css" />
+<link type="text/css" rel="stylesheet" href="style/app_weibo.css" />
+<link type="text/css" rel="stylesheet" href="style/weibo_comment.css" />
+<title>无标题文档</title>
+</head>
+
+<body onselectstart="return false;" onload="appinit()">
+<div class="comment-wrapper">
+	<div class="tool-bar"><span onmouseup="nativeWindow.close();" class="close-icon"></span></div>
+	<div class="user-info" id="my-info">
+    	<div class="avatar"><img id="my-avatar" src="images/weibo/avatar.png" /></div>
+        <div class="detail">
+        	<p class="my-name"></p>
+			<p class="my-detail"></p>
+        </div>
+        <div class="honor" id="my-honor">正在获取用户信息...</div>
+    </div>
+    <p class="transdoor" id="transdoor"></p>
+    <div style="text-align:right;padding:3px 8px;"><label><input type="checkbox" id="addPost" />同时发一条评论</label></div>
+	<div class="wb-post" id="post-form">
+		<p class="post-actions">您还可以输入<span class="post-tip" id="wordlength">163</span>字</p>
+        <p class="post-content"><textarea class="post-area" id="post-text"></textarea></p>
+        <p style="text-align:right;">
+        <span class="post-btn" onclick="Weibo.actions.sendPost()">&nbsp;&nbsp;</span>
+        <input type="hidden" id="repostId" value="" />
+        <input type="hidden" id="commentId" value="" />
+        </p>
+	</div>
+</div>
+<div class="tooltip" id="tooltip">   
+</div>
+<script type="text/javascript" src="script/AIRAliases.js"></script>
+<script type="text/javascript" src="script/jquery.js"></script>
+<script type="text/javascript" src="script/sha.js"></script>
+<script type="text/javascript" src="script/json2.js"></script>
+<script type="text/javascript" src="script/oauth.js"></script>
+<script type="text/javascript" src="script/apis.js"></script>
+<script type="text/javascript" src="script/weibo_comment.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" rel="stylesheet" href="style/global.css" />
+<style>
+body
+{
+	background:#1d1d1d;
+}
+</style>
+<title>Measy</title>
+</head>
+
+<body>
+	<div class="tool-panel" id="tool-panel">
+    	<div class="application-head">MEASE<sup> Alpha </sup></div>
+        <span class="close" onclick="nativeWindow.close();" title="退出程序">&nbsp;</span>
+	</div>
+    <script type="text/javascript" src="script/AIRAliases.js"></script>
+	<script type="text/javascript" src="script/jquery.js"></script>
+    <script type="text/javascript">
+	$('#tool-panel').bind('mousedown',function(){
+		nativeWindow.startMove();
+	});
+	$(window).bind("keyup",function(e){
+		if(e.keyCode == 27){
+			nativeWindow.minimize();nativeWindow.close();
+		}
+	});
+	</script>
+</body>
+</html>

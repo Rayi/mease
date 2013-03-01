@@ -1,0 +1,23 @@
+@charset "utf-8";
+/* CSS Document */
+
+.user-settings,
+.submit-actions
+{
+	background:#212121;
+	line-height:24px;
+	padding:5px 10px;
+	color:#ffffff;
+}
+.user-settings {
+	padding:10px;
+	background:#424242;
+	border:5px solid #212121;
+	color:#ffffff;
+}
+
+.submit-actions
+{
+	text-align:right;
+	-webkit-border-radius:0 0 5px 5px;
+}
